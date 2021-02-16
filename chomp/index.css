@@ -1,0 +1,44 @@
+@import url("https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap");
+html {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  place-items: center;
+}
+
+body {
+  width: 75vw;
+  font-family: "Gloria Hallelujah", cursive;
+}
+
+#game {
+  display: grid;
+  place-items: center;
+}
+
+.cell {
+  height: 50px;
+  width: 50px;
+  display: grid;
+  place-items: center;
+}
+
+.row {
+  display: flex;
+}
+
+.blue {
+  background: blue;
+}
+
+.red {
+  background: red;
+}
+
+.green {
+  background: green;
+}
+
+#gameinfo {
+  visibility: hidden;
+}
