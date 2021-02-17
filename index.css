@@ -10,6 +10,9 @@ html {
     margin: 0;
     font-family: 'Gloria Hallelujah', cursive;
     height: 200vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .hidden {
