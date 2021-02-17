@@ -14,9 +14,11 @@
 </head>
 <body>
     <p>You can select one of the games below to play a game of pen and paper on your device!</p>
-    <wired-button id="startGame" onclick="playChomp()">Play Chomp</wired-button>
-    <wired-button id="startGame" onclick="playObstruction()">Play Obstruction</wired-button>
+    <wired-button id="startChomp" onclick="playChomp()">Play Chomp</wired-button>
+    <wired-button id="startObstruction" onclick="playObstruction()">Play Obstruction</wired-button>
+    <wired-button id="startConnect4" onclick="playConnect4()">Play Connect-4</wired-button>
     <iframe class="game hidden" id="gameChomp" src="./chomp/index.html" frameborder="0"></iframe>
     <iframe class="game hidden" id="gameObstruction" src="./obstruction/index.html" frameborder="0"></iframe>
+    <iframe class="game hidden" id="gameConnect4" src="./connect-4/index.html" frameborder="0"></iframe>
 </body>
 </html>
