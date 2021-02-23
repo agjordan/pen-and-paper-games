@@ -1,0 +1,29 @@
+{
+  "name": "games",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.[t|j]sx?$": "babel-jest"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agjordan/pen-and-paper-games.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/agjordan/pen-and-paper-games/issues"
+  },
+  "homepage": "https://github.com/agjordan/pen-and-paper-games#readme",
+  "devDependencies": {
+    "@babel/preset-env": "^7.12.16",
+    "babel-jest": "^26.6.3",
+    "jest": "^26.6.3"
+  }
+}

@@ -5,12 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chomp</title>
-    <script src="chomp.js" async defer></script>
     <script
       async
       src="https://unpkg.com/wired-elements/lib/wired-elements-iife.js"
     ></script>
     <link rel="stylesheet" href="index.css" />
+    <script type="module" src="chomp.js" defer></script>
   </head>
   <body>
     <section class="explanation">
@@ -20,9 +20,11 @@
         cell, all cells to the right and down of it are claimed (unless they are
         already claimed). The player who has to eat the green square loses.
       </h3>
-      <wired-button id="startGame" onclick="clearGrid()">Start Game</wired-button>
+      <wired-button id="startGame">Start Game</wired-button>
     </section>
 
     <section id="game"></section>
+
+    
   </body>
 </html>

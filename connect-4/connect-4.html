@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Obstruction</title>
-    <script src="connect-4.js" async defer></script>
+    <title>Connect-4</title>
+    <script type="module" src="connect-4.js"></script>
     <script
       async
       src="https://unpkg.com/wired-elements/lib/wired-elements-iife.js"
@@ -18,7 +18,7 @@
       <h3>
         Players take turns in marking squares on a grid, only the lowest unoccupied cell in a column may be marked. Connecting 4 marks in a row, column or diagonal is a victory.
       </h3>
-      <wired-button id="startGame" onclick="clearGrid()">Start Game</wired-button>
+      <wired-button id="startGame">Start Game</wired-button>
     </section>
 
     <section id="game"></section>

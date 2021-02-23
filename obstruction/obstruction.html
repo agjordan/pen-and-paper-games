@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Obstruction</title>
-    <script src="chomp.js" async defer></script>
+    <script type="module" src="obstruction.js"></script>
     <script
       async
       src="https://unpkg.com/wired-elements/lib/wired-elements-iife.js"
@@ -18,7 +18,7 @@
       <h3>
         Players take turns in marking squares on a grid, all adjacent squares are marked as claimed. The first player unable to move loses.
       </h3>
-      <wired-button id="startGame" onclick="clearGrid()">Start Game</wired-button>
+      <wired-button id="startGame">Start Game</wired-button>
     </section>
 
     <section id="game"></section>

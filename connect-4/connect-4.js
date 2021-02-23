@@ -3,12 +3,30 @@ const GRID_HEIGHT = 6;
 const GRID_WIDTH = 7;
 
 const PLAYERS = 2;
+
 let currentPlayer = 1;
 let playerColor = ["blue", "red"];
 
-const game = document.getElementById("game");
+const GAME_ELEM = document.getElementById("game");
 
-const generateGrid = (height, width) => {
+document.addEventListener("DOMContentLoaded", function () {
+  GAME_ELEM.addEventListener("click", (event) => {
+    let column = event.target.classList[1].split(",")[1];
+    markGrid(gameGrid, column, currentPlayer);
+    updateDisplay(gameGrid, GAME_ELEM);
+    checkWinCondition(gameGrid, currentPlayer);
+    currentPlayer = getNextPlayer(currentPlayer, PLAYERS);
+  });
+
+  document.getElementById("startGame").addEventListener("click", (event) => {
+    event.target.innerText = "Reset";
+    console.log("reset");
+    gameGrid = generateGrid(GRID_HEIGHT, GRID_WIDTH);
+    updateDisplay(gameGrid, GAME_ELEM);
+  });
+});
+
+export const generateGrid = (height, width) => {
   let grid = [];
   for (let i = 0; i < height; i++) {
     grid[i] = [];
@@ -19,14 +37,13 @@ const generateGrid = (height, width) => {
   return grid;
 };
 
-let grid = generateGrid(GRID_HEIGHT, GRID_WIDTH);
-let gameinfo = document.getElementById("gameinfo");
+let gameGrid = generateGrid(GRID_HEIGHT, GRID_WIDTH);
 
-const updateDisplay = () => {
+export const updateDisplay = (grid, elem) => {
   let display = "";
-  for (row in grid) {
+  for (let row in grid) {
     display += `<div class="row row${row}">`;
-    for (column in grid[row]) {
+    for (let column in grid[row]) {
       switch (grid[row][column]) {
         case "":
           display += `<wired-card class="cell ${row},${column}"></wired-card>`;
@@ -40,83 +57,68 @@ const updateDisplay = () => {
     }
     display += "</div>";
   }
-  game.innerHTML = display;
+  elem.innerHTML = display;
 };
 
-const markCells = (column) => {
-  for (let row = GRID_HEIGHT - 1; row >= 0; row--) {
+export const markGrid = (grid, column, player) => {
+  for (let row = grid.length - 1; row >= 0; row--) {
     if (grid[row][column]) continue;
-    grid[row][column] = currentPlayer;
-    updateDisplay();
-    checkWinCondition();
-    nextPlayer();
+    grid[row][column] = player;
     break;
   }
 };
 
-const nextPlayer = () => {
-  if (currentPlayer === PLAYERS) {
-    currentPlayer = 1;
+export const getNextPlayer = (current, total) => {
+  if (current === total) {
+    return (current = 1);
   } else {
-    currentPlayer++;
+    return ++current;
   }
 };
 
-const checkWinCondition = () => {
+export const checkWinCondition = (grid, player) => {
   setTimeout(function () {
-    for (let row = 0; row < GRID_HEIGHT; row++) {
-      for (let column = 0; column < GRID_WIDTH; column++) {
+    let height = grid.length
+    let width = grid[0].length
+    console.log(grid)
+    for (let row = 0; row < height; row++) {
+      for (let column = 0; column < width; column++) {
         if (
           grid[row][column] &&
-          column + 3 < GRID_WIDTH &&
+          column + 3 < width &&
           grid[row][column] == grid[row][column + 3] &&
           grid[row][column] == grid[row][column + 2] &&
           grid[row][column] == grid[row][column + 1]
         ) {
-          nextPlayer();
-          alert(`Winner: Player${currentPlayer}`);
+          alert(`Winner: Player${player}`);
         } else if (
           grid[row][column] &&
-          row + 3 < GRID_HEIGHT &&
+          row + 3 < height &&
           grid[row][column] == grid[row + 3][column] &&
           grid[row][column] == grid[row + 2][column] &&
           grid[row][column] == grid[row + 1][column]
         ) {
-          nextPlayer();
-          alert(`Winner: Player${currentPlayer}`);
+          alert(`Winner: Player${player}`);
         } else if (
           grid[row][column] &&
-          row + 3 < GRID_WIDTH &&
-          column + 3 < GRID_HEIGHT &&
-          grid[row][column] == grid[row + 3][column+3] &&
-          grid[row][column] == grid[row + 2][column+2] &&
-          grid[row][column] == grid[row + 1][column+1]
+          row + 3 < height &&
+          column + 3 < width &&
+          grid[row][column] == grid[row + 3][column + 3] &&
+          grid[row][column] == grid[row + 2][column + 2] &&
+          grid[row][column] == grid[row + 1][column + 1]
         ) {
-          nextPlayer();
-          alert(`Winner: Player${currentPlayer}`);
+          alert(`Winner: Player${player}`);
         } else if (
           grid[row][column] &&
-          row + 3 < GRID_WIDTH &&
-          column - 3 > 0 &&
-          grid[row][column] == grid[row + 3][column-3] &&
-          grid[row][column] == grid[row + 2][column-2] &&
-          grid[row][column] == grid[row + 1][column-1]
+          row - 3 > 0 &&
+          column + 3 < height &&
+          grid[row][column] == grid[row - 1][column + 1] &&
+          grid[row][column] == grid[row - 2][column + 2] &&
+          grid[row][column] == grid[row - 3][column + 3]
         ) {
-          nextPlayer();
-          alert(`Winner: Player${currentPlayer}`);
+          alert(`Winner: Player${player}`);
         }
       }
     }
   }, 50);
 };
-
-const clearGrid = () => {
-  document.getElementById("startGame").innerText = "Reset";
-  grid = generateGrid(GRID_HEIGHT, GRID_WIDTH);
-  updateDisplay();
-};
-
-game.addEventListener("click", (event) => {
-  let column = event.target.classList[1].split(",")[1];
-  markCells(column);
-});
