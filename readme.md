@@ -1,5 +1,5 @@
 ## Project title
-A collection of pen and paper games that can be played in the browser - saving a couple pieces of paper here and there.
+A collection of pen and paper games that can be played in the browser - saving a couple pieces of paper here and there. Can be viewed [here](https://agjordan.github.io/pen-and-paper-games/)
 
 ## Motivation
 Built to explore HTML, CSS, JS without libraries to see what is possible to achieve in a short time with limited resources. Happy to receive any feedback/comments/suggestions.
