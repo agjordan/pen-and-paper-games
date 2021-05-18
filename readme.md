@@ -9,9 +9,9 @@ Complete for now. Could extend by creating more games to add to the collection.
 
 ## Screenshots
 
-![Connect4](./assets/Connect4.png "Connect 4")
-![Chomp](./assets/Chomp.png "Chomp")
-![Obstruction](./assets/Obstruction.png "Obstruction")
+![Connect4](./assets/images/Connect4.png "Connect 4")
+![Chomp](./assets/images/Chomp.png "Chomp")
+![Obstruction](./assets/images/Obstruction.png "Obstruction")
 
 ## Tech/framework used
 - HTML

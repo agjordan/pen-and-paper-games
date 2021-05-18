@@ -5,7 +5,7 @@ import {
   clearGrid,
   markCells,
   updateDisplay,
-} from "./chomp/chomp.js";
+} from "../../chomp/chomp.js";
 
 describe("generateGrid(n, m)", () => {
   it("should generate a grid of n-rows", () => {

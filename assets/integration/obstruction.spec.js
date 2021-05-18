@@ -1,4 +1,4 @@
-import { generateGrid, updateDisplay, markGrid, getNextPlayer } from "./connect-4/connect-4.js";
+import { generateGrid, updateDisplay, markCells, getNextPlayer } from "../../obstruction/obstruction.js";
 
 //TODO: test for checkWinCondition
 
@@ -15,21 +15,29 @@ describe("generateGrid(n, m)", () => {
     expect(generateGrid(3, 4)[2].length).toEqual(4);
     expect(generateGrid(10, 2)[1].length).toEqual(2);
   });
+
+  it("cells should be generated", () => {
+    let testGrid = generateGrid(3, 4);
+    expect(testGrid[0][0]).toBeDefined();
+    expect(testGrid[1][2]).toBeDefined();
+    expect(testGrid[2][3]).toBeDefined();
+  });
 });
 
-describe("updateDisplay(grid)", () => {
+describe("updateDisplay(grid, player, colors)", () => {
+let colors = ["blue", "red"]
   let testGrid1 = generateGrid(3, 4);
   let testGrid2 = generateGrid(10, 2);
   let testElem1 = { innerHTML: "" };
   let testElem2 = { innerHTML: "" };
+  updateDisplay(testGrid1, testElem1, colors);
+  updateDisplay(testGrid2, testElem2, colors);
 
   it("2 different grids should not result in the same display", () => {
-    expect(testGrid1.length).not.toEqual(testGrid2);
+    expect(testElem1).not.toEqual(testElem2);
   });
 
   it("blank grids are approriately displayed", () => {
-    updateDisplay(testGrid1, testElem1);
-    updateDisplay(testGrid2, testElem2);
     expect(testElem1.innerHTML).toEqual(
       `<div class="row row0"><wired-card class="cell 0,0"></wired-card><wired-card class="cell 0,1"></wired-card><wired-card class="cell 0,2"></wired-card><wired-card class="cell 0,3"></wired-card></div><div class="row row1"><wired-card class="cell 1,0"></wired-card><wired-card class="cell 1,1"></wired-card><wired-card class="cell 1,2"></wired-card><wired-card class="cell 1,3"></wired-card></div><div class="row row2"><wired-card class="cell 2,0"></wired-card><wired-card class="cell 2,1"></wired-card><wired-card class="cell 2,2"></wired-card><wired-card class="cell 2,3"></wired-card></div>`
     );
@@ -39,34 +47,52 @@ describe("updateDisplay(grid)", () => {
   });
 });
 
-describe("markGrid(grid, column, player)", () => {
-  it("marked grid positions are recorded on the grid", () => {
+describe("markGrid(grid, x, y, player)", () => {
+  it("marked corner grid positions are recorded on the grid, adjacent cells are claimed", () => {
     let gridToMark = generateGrid(3, 4);
-    // expect(gridToMark.length).toEqual(3);
-    markGrid(gridToMark, 1, 1, 3);
-    markGrid(gridToMark, 0, 2, 3);
-    expect(gridToMark[2][1]).toEqual(1);
-    expect(gridToMark[2][0]).toEqual(2);
+    markCells(gridToMark, 0, 0, 1)
+    expect(gridToMark[0][0].clicked).toEqual(1)
+    expect(gridToMark[0][0].claimed).toEqual(1)
+    expect(gridToMark[0][1].claimed).toEqual("X")
+    expect(gridToMark[1][0].claimed).toEqual("X")
+    expect(gridToMark[1][1].claimed).toEqual("X")
   });
-
-  it("marks stack on lower cells", () => {
-    let gridToMark = generateGrid(3, 4);
-    // expect(gridToMark.length).toEqual(3);
-    markGrid(gridToMark, 1, 1, 3);
-    markGrid(gridToMark, 1, 2, 3);
-    expect(gridToMark[2][1]).toEqual(1);
-    expect(gridToMark[1][1]).toEqual(2);
+  it("marked central grid positions are recorded on the grid, adjacent cells are claimed", () => {
+    let gridToMark = generateGrid(6, 6);
+    markCells(gridToMark, 2, 2, 2)
+    expect(gridToMark[2][2].clicked).toEqual(2)
+    expect(gridToMark[2][2].claimed).toEqual(2)
+    expect(gridToMark[1][1].claimed).toEqual("X")
+    expect(gridToMark[1][2].claimed).toEqual("X")
+    expect(gridToMark[1][3].claimed).toEqual("X")
+    expect(gridToMark[2][1].claimed).toEqual("X")
+    expect(gridToMark[2][3].claimed).toEqual("X")
+    expect(gridToMark[3][1].claimed).toEqual("X")
+    expect(gridToMark[3][2].claimed).toEqual("X")
+    expect(gridToMark[3][3].claimed).toEqual("X")
+  });
+  it("cannot mark an already marked or claimed cell", () => {
+    let gridToMark = generateGrid(6, 6);
+    markCells(gridToMark, 2, 2, 2)
+    markCells(gridToMark, 2, 2, 2)
+    expect(gridToMark[2][2].clicked).toEqual(2)
+    expect(gridToMark[2][2].claimed).toEqual(2)
+    expect(gridToMark[1][1].claimed).toEqual("X")
+    expect(gridToMark[1][2].claimed).toEqual("X")
+    expect(gridToMark[1][3].claimed).toEqual("X")
+    expect(gridToMark[2][1].claimed).toEqual("X")
+    expect(gridToMark[2][3].claimed).toEqual("X")
+    expect(gridToMark[3][1].claimed).toEqual("X")
+    expect(gridToMark[3][2].claimed).toEqual("X")
+    expect(gridToMark[3][3].claimed).toEqual("X")
   });
 });
 
 describe("nextPlayer(current, total)", () => {
-  let currentPlayer = 1;
   it("should move from player 1 to 2", () => {
-    currentPlayer = getNextPlayer(1, 2);
-    expect(currentPlayer).toEqual(2);
+    expect(getNextPlayer(1, 2)).toEqual(2);
   });
   it("should move from player 2 to 1", () => {
-    currentPlayer = getNextPlayer(2, 2);
-    expect(currentPlayer).toEqual(1);
+    expect(getNextPlayer(2, 2)).toEqual(1);
   });
 });

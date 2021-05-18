@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "e2e": "cypress"
   },
   "jest": {
     "transform": {
@@ -24,6 +25,7 @@
   "devDependencies": {
     "@babel/preset-env": "^7.12.16",
     "babel-jest": "^26.6.3",
+    "cypress": "^6.5.0",
     "jest": "^26.6.3"
   }
 }
